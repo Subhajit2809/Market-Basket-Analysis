@@ -1,0 +1,33 @@
+setwd("E:/data")
+
+library(arules)
+groc <- read.transactions("groceries.csv", sep=",")
+
+groc
+
+summary(groc)
+
+inspect(head(groc))
+
+itemFrequency(groc)
+
+itemFrequencyPlot(groc)
+
+itemFrequencyPlot(groc, support = 0.2)
+itemFrequencyPlot(groc, support = 0.1)
+itemFrequencyPlot(groc, topN=5)
+itemFrequencyPlot(groc, topN=20)
+
+groc.apriori <- apriori(groc, parameter=list(support=0.007, 
+            confidence=0.25, minlen=2, maxlen =2))
+groc.apriori
+groc.apriori <- apriori(groc, parameter=list(support=0.007, confidence=0.25, minlen=2, maxlen =2))
+groc.apriori
+
+summary(groc.apriori)
+
+inspect(groc.apriori)
+inspect(sort(groc.apriori, by="lift")[1:5])
+
+library(arulesViz)
+plot(groc.apriori,method="graph",interactive=TRUE,shading=NA)
